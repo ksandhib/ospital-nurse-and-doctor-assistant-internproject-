@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI ClinicOS Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="login-home">
+  <main class="login-shell" aria-label="AI ClinicOS login">
+    <section class="login-brand-panel">
+      <div class="login-brand-copy">
+        <div class="brand brand-large">
+          <span class="brand-mark">AI</span>
+          <span>ClinicOS</span>
+        </div>
+        <h1>AI ClinicOS</h1>
+        <p>AI Powered Clinical Management System</p>
+      </div>
+      <div class="medical-illustration" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80" alt="">
+      </div>
+    </section>
+
+    <section class="login-forms-panel">
+      <div class="login-forms-header">
+        <p class="eyebrow">Secure Access</p>
+        <h2>Sign in to continue</h2>
+      </div>
+
+      <div class="login-card-grid">
+        <form class="portal-login-card" data-login-role="doctor">
+          <div class="card-title-row">
+            <span class="login-icon"><i class="fa-solid fa-user-doctor"></i></span>
+            <h3>Doctor Login</h3>
+          </div>
+          <label>Username
+            <input name="email" type="email" value="doctor@clinicos.example" autocomplete="username" required>
+          </label>
+          <label>Password
+            <input name="password" type="password" value="Doctor@123" autocomplete="current-password" required>
+          </label>
+          <div class="row-between">
+            <label class="check"><input type="checkbox" name="remember">Remember Me</label>
+            <button type="button" class="link-button">Forgot Password?</button>
+          </div>
+          <button class="btn btn-primary btn-full" type="submit">Sign In</button>
+          <p class="form-status" role="status"></p>
+        </form>
+
+        <form class="portal-login-card" data-login-role="nurse">
+          <div class="card-title-row">
+            <span class="login-icon"><i class="fa-solid fa-user-nurse"></i></span>
+            <h3>Nurse Login</h3>
+          </div>
+          <label>Username
+            <input name="email" type="email" value="nurse@clinicos.example" autocomplete="username" required>
+          </label>
+          <label>Password
+            <input name="password" type="password" value="Nurse@123" autocomplete="current-password" required>
+          </label>
+          <div class="row-between">
+            <label class="check"><input type="checkbox" name="remember">Remember Me</label>
+            <button type="button" class="link-button">Forgot Password?</button>
+          </div>
+          <button class="btn btn-primary btn-full" type="submit">Sign In</button>
+          <p class="form-status" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>

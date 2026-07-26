@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Workspace | AI ClinicOS</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="app-page">
+  <aside class="sidebar">
+    <a class="brand" href="index.html"><span class="brand-mark">AI</span><span>ClinicOS</span></a>
+    <button class="nav-tab active" data-view="dashboard">Dashboard</button>
+    <button class="nav-tab" data-view="patients">Patients</button>
+    <button class="nav-tab" data-view="appointments">Appointments</button>
+    <button class="nav-tab doctor-only" data-view="ai">AI Assist</button>
+    <button class="nav-tab" data-view="medicines">Medicines</button>
+    <button class="nav-tab" data-view="reports">Reports</button>
+    <button class="nav-tab chat-nav-tab" data-view="assistant">AI Assistant</button>
+  </aside>
+
+  <main class="workspace">
+    <header class="topbar">
+      <div><p class="eyebrow" id="roleLabel">Clinic workspace</p><h1 id="welcome">AI ClinicOS</h1></div>
+      <button class="btn btn-muted" id="logoutBtn">Logout</button>
+    </header>
+
+    <section class="view active" id="dashboard">
+      <p id="dashboardStatus" class="dashboard-status" role="status">Loading dashboard data...</p>
+      <div class="stats-grid dashboard-stats">
+        <article><span id="cardOneLabel">Today's Patients</span><strong id="statPatients">0</strong></article>
+        <article><span id="cardTwoLabel">Appointments</span><strong id="statAppointments">0</strong></article>
+        <article><span id="cardThreeLabel">Pending Follow-ups</span><strong id="statFollowups">0</strong></article>
+        <article><span id="cardFourLabel">Medicine Stock</span><strong id="statStock">0</strong></article>
+        <article><span id="cardFiveLabel">Total Medicines</span><strong id="statFive">0</strong></article>
+        <article><span id="cardSixLabel">Today's Consultations</span><strong id="statSix">0</strong></article>
+        <article><span id="cardSevenLabel">Lab Reports</span><strong id="statSeven">0</strong></article>
+        <article><span id="cardEightLabel">AI Recommendations</span><strong id="statEight">0</strong></article>
+      </div>
+      <div class="panel-grid">
+        <section class="panel"><h2>Today's Summary</h2><div id="todaySummary" class="summary-grid"></div></section>
+        <section class="panel"><h2>Recent Activity</h2><div id="recentActivity" class="activity-list"><p>Activity appears here.</p></div></section>
+      </div>
+      <div class="chart-grid">
+        <section class="panel chart-panel"><h2>Monthly Patient Registrations</h2><canvas id="monthlyPatientsChart"></canvas></section>
+        <section class="panel chart-panel"><h2>Daily Appointments</h2><canvas id="dailyAppointmentsChart"></canvas></section>
+        <section class="panel chart-panel"><h2>Appointment Status Distribution</h2><canvas id="appointmentStatusChart"></canvas></section>
+        <section class="panel chart-panel"><h2>Common Diseases</h2><canvas id="commonDiseasesChart"></canvas></section>
+        <section class="panel chart-panel"><h2>Medicine Usage</h2><canvas id="medicineUsageChart"></canvas></section>
+        <section class="panel chart-panel"><h2>Weekly Consultations</h2><canvas id="weeklyConsultationsChart"></canvas></section>
+        <section class="panel chart-panel"><h2>Follow-up Status</h2><canvas id="followupStatusChart"></canvas></section>
+        <section class="panel chart-panel"><h2>AI Recommendation Activity</h2><canvas id="aiActivityChart"></canvas></section>
+      </div>
+      <div class="panel-grid dashboard-table-grid">
+        <section class="panel"><h2>Recent Patients</h2><div id="recentPatients" class="table-wrap"></div></section>
+        <section class="panel"><h2>Today's Appointments</h2><div id="dashboardAppointments" class="table-wrap"></div></section>
+      </div>
+      <section class="panel"><h2>Recent Prescriptions</h2><div id="recentPrescriptions" class="table-wrap"></div></section>
+      <div id="appointmentNotifications" class="notice-list" hidden></div>
+    </section>
+
+    <section class="view" id="patients">
+      <div class="toolbar">
+        <input id="patientSearch" placeholder="Search by ID, name, phone, disease">
+        <button class="btn btn-primary" id="searchPatients">Search</button>
+      </div>
+      <div class="panel-grid">
+        <section class="panel"><h2>Patients</h2><div id="patientResults" class="table-wrap"></div></section>
+        <section class="panel nurse-only">
+          <h2>Register Patient</h2>
+          <form id="patientForm" class="stack-form">
+            <input name="name" placeholder="Full name" required>
+            <input name="phone" placeholder="Phone" required>
+            <input name="age" type="number" placeholder="Age">
+            <select name="gender"><option value="">Gender</option><option>Female</option><option>Male</option><option>Other</option></select>
+            <input name="blood_group" placeholder="Blood group">
+            <input name="height_cm" type="number" step="0.1" placeholder="Height cm">
+            <input name="weight_kg" type="number" step="0.1" placeholder="Weight kg">
+            <textarea name="allergies" placeholder="Allergies"></textarea>
+            <textarea name="chronic_diseases" placeholder="Chronic diseases"></textarea>
+            <button class="btn btn-primary" type="submit">Register</button>
+          </form>
+        </section>
+      </div>
+      <section class="panel"><h2>Patient Timeline</h2><div id="timeline" class="timeline"></div></section>
+    </section>
+
+    <section class="view" id="appointments">
+      <div class="stats-grid appointment-stats">
+        <article><span>Today's Appointments</span><strong id="apptToday">0</strong></article>
+        <article><span>Waiting Patients</span><strong id="apptWaiting">0</strong></article>
+        <article class="doctor-only"><span>Currently in Consultation</span><strong id="apptProgress">0</strong></article>
+        <article class="nurse-only"><span>Cancelled Today</span><strong id="apptCancelled">0</strong></article>
+        <article><span>Completed Today</span><strong id="apptCompleted">0</strong></article>
+      </div>
+
+      <section class="panel nurse-only">
+        <h2>Create New Appointment</h2>
+        <form id="appointmentForm" class="stack-form appointment-form">
+          <input name="patient_query" id="appointmentPatientSearch" placeholder="Search patient by ID or name" autocomplete="off">
+          <select name="patient_id" id="appointmentPatient" required><option value="">Select patient</option></select>
+          <div class="form-row">
+            <input name="appointment_date" type="date" required>
+            <input name="appointment_time" type="time" required>
+          </div>
+          <select name="doctor_id" id="appointmentDoctor" required><option value="">Select doctor</option></select>
+          <div class="form-row">
+            <select name="visit_type" required>
+              <option value="New Consultation">New Consultation</option>
+              <option value="Follow-up">Follow-up</option>
+              <option value="Emergency">Emergency</option>
+              <option value="Review">Review</option>
+            </select>
+            <select name="priority" required>
+              <option value="Normal">Normal</option>
+              <option value="High">High</option>
+              <option value="Urgent">Urgent</option>
+            </select>
+          </div>
+          <textarea name="reason_for_visit" placeholder="Reason for visit" required></textarea>
+          <textarea name="notes" placeholder="Additional notes"></textarea>
+          <button class="btn btn-primary" type="submit">Book Appointment</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Appointment Calendar</h2>
+        <div class="toolbar appointment-filters">
+          <select id="appointmentView">
+            <option value="day">Day</option>
+            <option value="week">Week</option>
+            <option value="month">Month</option>
+            <option value="all">All</option>
+          </select>
+          <input id="appointmentSearch" placeholder="Search by patient, token, doctor, status">
+          <input id="appointmentDateFilter" type="date">
+          <select id="appointmentDoctorFilter"><option value="">All doctors</option></select>
+          <select id="appointmentStatusFilter">
+            <option value="">All statuses</option>
+            <option value="waiting">Waiting</option>
+            <option value="in_progress">In Progress</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <button class="btn btn-primary" id="filterAppointments">Filter</button>
+        </div>
+        <div id="appointmentResults" class="table-wrap"></div>
+        <div id="doctorAppointmentCards" class="appointment-card-list"></div>
+      </section>
+    </section>
+
+    <section class="view doctor-only" id="ai">
+      <section class="panel ai-assistant-panel">
+        <h2>AI Medicine Recommendations</h2>
+        <form id="medicineAiForm" class="stack-form">
+          <p class="selected-patient" id="selectedPatientContext">Select a patient from the Patients tab first.</p>
+          <textarea class="large-symptoms" name="symptoms" placeholder="Enter the patient's symptoms... (Example: Fever, body pain, headache, sore throat for 2 days)" required></textarea>
+          <button class="btn btn-primary" type="submit">Analyze</button>
+        </form>
+      </section>
+      <section class="panel"><h2>AI Result</h2><div id="aiResult"></div></section>
+    </section>
+
+    <section class="view" id="medicines">
+      <div class="toolbar">
+        <input id="medicineSearch" placeholder="Search medicines">
+        <button class="btn btn-primary" id="searchMedicines">Search</button>
+      </div>
+      <section class="panel nurse-only">
+        <h2>Import Medicine Excel</h2>
+        <form id="medicineImport" class="inline-form"><input name="file" type="file" accept=".xlsx" required><button class="btn btn-primary">Import</button></form>
+      </section>
+      <section class="panel"><h2>Medicine Database</h2><div id="medicineResults" class="table-wrap"></div></section>
+    </section>
+
+    <section class="view" id="reports">
+      <section class="panel">
+        <h2>Reports</h2>
+        <div class="quick-actions">
+          <button class="btn btn-muted" data-report="daily">Daily</button>
+          <button class="btn btn-muted" data-report="weekly">Weekly</button>
+          <button class="btn btn-muted" data-report="monthly">Monthly</button>
+          <a class="btn btn-primary" id="medicineExcel" href="#">Medicine Excel</a>
+        </div>
+        <pre id="reportResult"></pre>
+      </section>
+    </section>
+
+    <section class="view" id="assistant">
+      <div class="chat-shell">
+        <aside class="chat-history-panel">
+          <div class="chat-history-head">
+            <h2>AI Assistant</h2>
+            <button class="mini-btn" id="newAssistantChat" type="button">New Chat</button>
+          </div>
+          <input id="assistantSearch" placeholder="Search conversations">
+          <div id="assistantConversations" class="conversation-list"></div>
+        </aside>
+
+        <section class="chat-main-panel">
+          <div class="chat-topbar">
+            <div>
+              <p class="eyebrow">Clinic data copilot</p>
+              <h2 id="assistantTitle">New conversation</h2>
+            </div>
+            <div class="quick-actions">
+              <button class="btn btn-muted" id="renameAssistantChat" type="button">Rename</button>
+              <button class="btn btn-muted" id="deleteAssistantChat" type="button">Delete</button>
+            </div>
+          </div>
+          <div id="assistantSuggestions" class="suggestion-grid"></div>
+          <div id="assistantMessages" class="chat-messages" aria-live="polite"></div>
+          <div id="assistantTyping" class="typing-indicator" hidden><span></span><span></span><span></span></div>
+          <form id="assistantForm" class="chat-input-bar">
+            <textarea id="assistantInput" placeholder="Ask anything about your patients, medicines, appointments, reports, or clinic data..." required></textarea>
+            <div class="chat-input-actions">
+              <button class="btn btn-primary" type="submit">Send</button>
+              <button class="btn btn-muted" id="clearAssistantChat" type="button">Clear Chat</button>
+              <button class="btn btn-muted" id="newAssistantChatBottom" type="button">New Conversation</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

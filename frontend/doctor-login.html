@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Doctor Login | AI ClinicOS</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-visual">
+      <a class="brand" href="index.html"><span class="brand-mark">AI</span><span>ClinicOS</span></a>
+      <h1>Doctor Portal</h1>
+      <p>Review EMR history, request AI clinical support, approve prescriptions, and export reports.</p>
+    </section>
+    <form class="auth-card" data-login-role="doctor">
+      <h2>Doctor Login</h2>
+      <label>Email<input name="email" type="email" value="doctor@clinicos.example" required></label>
+      <label>Password<input name="password" type="password" value="Doctor@123" required></label>
+      <div class="row-between">
+        <label class="check"><input type="checkbox" name="remember">Remember me</label>
+        <button type="button" class="link-button">Forgot password?</button>
+      </div>
+      <button class="btn btn-primary btn-full" type="submit">Sign in</button>
+      <p class="form-status" role="status"></p>
+    </form>
+  </main>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>

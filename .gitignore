@@ -1,0 +1,46 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Environment files
+.env
+.env.*
+
+# Node
+node_modules/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Uploads (keep structure but ignore actual uploaded files)
+backend/app/uploads/medicine-imports/*.xlsx
+
+# Tests
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Project specific
+backend/ai_clinicos.db
+
