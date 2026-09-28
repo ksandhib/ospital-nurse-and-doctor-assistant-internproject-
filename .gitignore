@@ -43,4 +43,5 @@ htmlcov/
 
 # Project specific
 backend/ai_clinicos.db
-
+# Media / Large files
+*.mp4
